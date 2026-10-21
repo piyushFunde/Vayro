@@ -42,14 +42,7 @@ $env:JAVA_HOME = 'C:\Program Files\Java\jdk-17' # If not already in environment
 .\mvnw.cmd spring-boot:run
 ```
 
-The REST API and WebSocket server will start on `http://localhost:8080`.
-
-#### Default Seeded Credentials:
-- **Rider:** `rider@vayro.com` / `Rider@123`
-- **Driver 1:** `driver1@vayro.com` / `Driver@123` (Toyota Camry, Sedan)
-- **Driver 2:** `driver2@vayro.com` / `Driver@123` (Tesla Model 3, Luxury)
-- **Admin:** `admin@vayro.com` / `Admin@123`
-- **Promo Codes:** `VAYRO50` (50% off up to $25), `WELCOME20` (20% off)
+The REST API and WebSocket server will start on `http://localhost:808
 
 ---
 
