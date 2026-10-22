@@ -86,11 +86,8 @@ export default function VayroHero({
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 pt-8 pb-4">
-      {/* 2-Column Grid: Left Booking Form, Right Dark Map Frame */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-        {/* Left Column: Heading & Booking Card */}
         <div className="lg:col-span-5 flex flex-col justify-center space-y-6">
-          {/* Top Pill Badge */}
           <div>
             <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-vayro-limeLight text-[#0E131F] text-xs font-semibold">
               <span className="text-emerald-700">📍</span>
@@ -98,7 +95,6 @@ export default function VayroHero({
             </div>
           </div>
 
-          {/* Headline */}
           <div>
             <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold text-[#0E131F] leading-[1.1] tracking-tight">
               Your ride,
@@ -110,9 +106,7 @@ export default function VayroHero({
             </p>
           </div>
 
-          {/* Booking Card */}
           <div className="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200/90 relative">
-            {/* Tabs */}
             <div className="flex items-center space-x-2 mb-5">
               <button
                 type="button"
@@ -140,7 +134,6 @@ export default function VayroHero({
               </button>
             </div>
 
-            {/* Inputs */}
             <div className="space-y-3 relative">
               {/* Pickup Location */}
               <div className="relative">
@@ -239,7 +232,6 @@ export default function VayroHero({
               </div>
             </div>
 
-            {/* CTA Button */}
             <button
               type="button"
               onClick={onBookRide}
@@ -251,7 +243,6 @@ export default function VayroHero({
           </div>
         </div>
 
-        {/* Right Column: Hero Dark Map Device */}
         <div className="lg:col-span-7 flex flex-col justify-center">
           <div className="w-full h-[460px] sm:h-[500px] rounded-3xl overflow-hidden shadow-2xl relative border border-slate-800">
             <MapView
@@ -272,7 +263,6 @@ export default function VayroHero({
         </div>
       </div>
 
-      {/* Dismissible Welcome Banner matching Image 2 */}
       {showPromoBanner && (
         <div className="w-full mt-8 bg-[#111622] rounded-2xl p-4 sm:px-6 flex items-center justify-between text-white shadow-sm border border-slate-800">
           <div className="flex items-center space-x-3 text-xs sm:text-sm">

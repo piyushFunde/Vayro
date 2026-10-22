@@ -1,37 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
-import { Navigation, Moon, Sun, Crosshair } from 'lucide-react';
+import { Navigation, Moon, Sun, Crosshair, Plus, Minus } from 'lucide-react';
 
-// Create custom markers matching Vayro screenshot
 const createVayroIcon = (type, options = {}) => {
   let innerHtml = '';
   const { heading = 0 } = options;
 
   if (type === 'start') {
-    // White ring with black center
     innerHtml = `
       <div class="relative flex items-center justify-center">
-        <div class="w-6 h-6 rounded-full bg-white border-4 border-[#0E131F] shadow-lg flex items-center justify-center">
-          <div class="w-1.5 h-1.5 rounded-full bg-[#0E131F]"></div>
+        <div class="w-7 h-7 rounded-full bg-white border-[3px] border-[#0E131F] shadow-2xl flex items-center justify-center">
+          <div class="w-2.5 h-2.5 rounded-full bg-[#0E131F]"></div>
         </div>
       </div>
     `;
   } else if (type === 'end') {
-    // Lime rounded square
     innerHtml = `
       <div class="relative flex items-center justify-center">
-        <div class="w-6 h-6 rounded-lg bg-vayro-lime border-2 border-white shadow-lg flex items-center justify-center">
-          <div class="w-2 h-2 rounded-sm bg-[#0E131F]"></div>
+        <div class="w-7 h-7 rounded-xl bg-vayro-lime border-2 border-white shadow-2xl flex items-center justify-center">
+          <div class="w-2.5 h-2.5 rounded-sm bg-[#0E131F]"></div>
         </div>
       </div>
     `;
   } else if (type === 'car') {
-    // White rounded car badge with black car icon
     innerHtml = `
-      <div class="relative flex items-center justify-center transition-transform duration-300" style="transform: rotate(${heading}deg);">
-        <div class="w-8 h-8 rounded-full bg-white border-2 border-slate-900 shadow-xl flex items-center justify-center text-[#0E131F]">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+      <div class="relative flex items-center justify-center">
+        <div class="absolute w-12 h-12 rounded-full bg-vayro-lime/25 animate-ping pointer-events-none"></div>
+        <div class="w-9 h-9 rounded-full bg-[#0E131F] border-2 border-vayro-lime shadow-2xl flex items-center justify-center text-vayro-lime transition-transform duration-300" style="transform: rotate(${heading}deg);">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+          </svg>
         </div>
       </div>
     `;
@@ -40,9 +39,9 @@ const createVayroIcon = (type, options = {}) => {
   return L.divIcon({
     html: innerHtml,
     className: 'custom-map-icon',
-    iconSize: [32, 32],
-    iconAnchor: [16, 16],
-    popupAnchor: [0, -16],
+    iconSize: [36, 36],
+    iconAnchor: [18, 18],
+    popupAnchor: [0, -18],
   });
 };
 
@@ -59,9 +58,9 @@ function MapViewController({ center, zoom, bounds }) {
   const map = useMap();
   useEffect(() => {
     if (bounds && bounds.length >= 2 && bounds[0] && bounds[1]) {
-      map.fitBounds(bounds, { padding: [70, 70], maxZoom: 15 });
+      map.fitBounds(bounds, { padding: [60, 60], maxZoom: 16 });
     } else if (center) {
-      map.setView(center, zoom || 13);
+      map.setView(center, zoom || 14, { animate: true });
     }
   }, [center, zoom, bounds, map]);
   return null;
@@ -77,6 +76,58 @@ function MapResizer() {
   return null;
 }
 
+function MapControls({ isDark, onToggleTheme, onRecenter, onZoomIn, onZoomOut }) {
+  return (
+    <div className="absolute top-4 right-4 z-20 flex flex-col space-y-2 bg-white/90 backdrop-blur-md p-1.5 rounded-2xl shadow-xl border border-slate-200/80">
+      <button
+        type="button"
+        onClick={onToggleTheme}
+        title={isDark ? 'Switch to Street Map' : 'Switch to Dark Map'}
+        className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-700 hover:text-black hover:bg-slate-100 transition cursor-pointer"
+      >
+        {isDark ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4" />}
+      </button>
+
+      <button
+        type="button"
+        onClick={onRecenter}
+        title="Recenter Map"
+        className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-700 hover:text-black hover:bg-slate-100 transition cursor-pointer"
+      >
+        <Crosshair className="w-4 h-4 text-[#0E131F]" />
+      </button>
+
+      <div className="h-px bg-slate-200 my-0.5" />
+
+      <button
+        type="button"
+        onClick={onZoomIn}
+        title="Zoom In"
+        className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-700 hover:text-black hover:bg-slate-100 transition cursor-pointer"
+      >
+        <Plus className="w-4 h-4" />
+      </button>
+
+      <button
+        type="button"
+        onClick={onZoomOut}
+        title="Zoom Out"
+        className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-700 hover:text-black hover:bg-slate-100 transition cursor-pointer"
+      >
+        <Minus className="w-4 h-4" />
+      </button>
+    </div>
+  );
+}
+
+function MapControllerRef({ onInit }) {
+  const map = useMap();
+  useEffect(() => {
+    if (onInit) onInit(map);
+  }, [map, onInit]);
+  return null;
+}
+
 export default function MapView({
   pickupCoords,
   dropCoords,
@@ -86,15 +137,17 @@ export default function MapView({
   activeDriverHeading = 0,
   activeDriverSpeed = 35,
   activeRide,
-  distanceKm = 6.4,
-  durationMinutes = 3,
-  fare = 168,
-  selectedCategory = 'Mini',
+  distanceKm,
+  durationMinutes,
+  fare,
+  selectedCategory,
   onMapClick,
 }) {
+  const [isDark, setIsDark] = useState(false);
+  const [mapInstance, setMapInstance] = useState(null);
+
   const defaultCenter = pickupCoords || [18.5285, 73.8743];
 
-  // Route bounds
   const bounds =
     routeCoordinates && routeCoordinates.length > 1
       ? routeCoordinates
@@ -102,47 +155,73 @@ export default function MapView({
       ? [pickupCoords, dropCoords]
       : null;
 
-  // Car position along the route
   const carPosition =
     activeDriverCoords ||
     (routeCoordinates && routeCoordinates.length > 0
       ? routeCoordinates[Math.floor(routeCoordinates.length / 2)]
       : pickupCoords);
 
+  const handleRecenter = () => {
+    if (!mapInstance) return;
+    if (bounds) {
+      mapInstance.fitBounds(bounds, { padding: [60, 60], maxZoom: 16 });
+    } else if (pickupCoords) {
+      mapInstance.setView(pickupCoords, 15, { animate: true });
+    } else {
+      mapInstance.setView(defaultCenter, 13, { animate: true });
+    }
+  };
+
+  const handleZoomIn = () => {
+    if (mapInstance) mapInstance.zoomIn();
+  };
+
+  const handleZoomOut = () => {
+    if (mapInstance) mapInstance.zoomOut();
+  };
+
   return (
-    <div className="relative w-full h-full min-h-[460px] rounded-3xl overflow-hidden bg-[#111622] vayro-map">
+    <div className="relative w-full h-full min-h-[460px] rounded-3xl overflow-hidden bg-[#0E131F] shadow-2xl border border-slate-200/50">
       <MapContainer
         center={defaultCenter}
-        zoom={13}
+        zoom={14}
         scrollWheelZoom={true}
         zoomControl={false}
         className="w-full h-full rounded-3xl"
       >
+        <MapControllerRef onInit={setMapInstance} />
         <MapResizer />
         <MapClickHandler onMapClick={onMapClick} />
         <MapViewController center={defaultCenter} bounds={bounds} />
 
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-          maxZoom={19}
-        />
+        {isDark ? (
+          <TileLayer
+            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            subdomains={['a', 'b', 'c', 'd']}
+            maxZoom={20}
+          />
+        ) : (
+          <TileLayer
+            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+            subdomains={['a', 'b', 'c', 'd']}
+            maxZoom={20}
+          />
+        )}
 
-        {/* Real Neon Green Route Polyline matching screenshot */}
         {routeCoordinates && routeCoordinates.length > 0 && (
           <>
-            {/* Glow backing */}
             <Polyline
               positions={routeCoordinates}
               pathOptions={{
-                color: '#CBF932',
-                weight: 8,
-                opacity: 0.35,
+                color: '#0E131F',
+                weight: 7,
+                opacity: 0.85,
                 lineCap: 'round',
                 lineJoin: 'round',
               }}
             />
-            {/* Crisp neon core */}
             <Polyline
               positions={routeCoordinates}
               pathOptions={{
@@ -156,7 +235,6 @@ export default function MapView({
           </>
         )}
 
-        {/* Start Point Marker (White ring) */}
         {pickupCoords && (
           <Marker position={pickupCoords} icon={createVayroIcon('start')}>
             <Popup>
@@ -165,7 +243,6 @@ export default function MapView({
           </Marker>
         )}
 
-        {/* End Point Marker (Lime square) */}
         {dropCoords && (
           <Marker position={dropCoords} icon={createVayroIcon('end')}>
             <Popup>
@@ -174,7 +251,6 @@ export default function MapView({
           </Marker>
         )}
 
-        {/* Car on Route Line */}
         {carPosition && (
           <Marker
             position={carPosition}
@@ -182,43 +258,20 @@ export default function MapView({
           >
             <Popup>
               <div className="text-xs font-bold text-slate-900">
-                Driver En Route • {activeDriverSpeed} km/h
+                Driver Active • {activeDriverSpeed} km/h
               </div>
             </Popup>
           </Marker>
         )}
       </MapContainer>
 
-      {/* Floating Driver Status Card (Top-Left) matching Image 1 */}
-      <div className="absolute top-5 left-5 z-20 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center space-x-3 border border-slate-100 backdrop-blur-md">
-        <div className="w-10 h-10 rounded-full bg-vayro-lime flex items-center justify-center font-bold text-xs text-[#0E131F]">
-          {activeRide?.driver?.user?.fullName
-            ? activeRide.driver.user.fullName.split(' ').map((n) => n[0]).join('').slice(0, 2)
-            : 'RK'}
-        </div>
-        <div>
-          <div className="text-xs sm:text-sm font-extrabold text-[#0E131F] leading-tight">
-            {activeRide?.status === 'DRIVER_ARRIVED'
-              ? 'Driver has arrived!'
-              : activeRide?.status === 'IN_PROGRESS'
-              ? 'On trip to destination'
-              : `Driver arriving in ${durationMinutes || 3} min`}
-          </div>
-          <div className="text-[11px] text-slate-500 font-medium">
-            {activeRide?.driver?.user?.fullName || 'Ramesh'} • {activeRide?.driver?.ratingAvg || '4.8'} rating
-          </div>
-        </div>
-      </div>
-
-      {/* Floating Price Badge (Bottom-Right) matching Image 1 */}
-      <div className="absolute bottom-5 right-5 z-20 bg-white rounded-2xl shadow-xl px-4 py-3 text-right border border-slate-100 backdrop-blur-md">
-        <div className="text-xs text-slate-500 font-medium">
-          {selectedCategory || 'Mini'} • {distanceKm || '6.4'} km
-        </div>
-        <div className="text-2xl font-black text-[#0E131F] tracking-tight">
-          ₹{fare || 168}
-        </div>
-      </div>
+      <MapControls
+        isDark={isDark}
+        onToggleTheme={() => setIsDark(!isDark)}
+        onRecenter={handleRecenter}
+        onZoomIn={handleZoomIn}
+        onZoomOut={handleZoomOut}
+      />
     </div>
   );
 }

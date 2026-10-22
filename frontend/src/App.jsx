@@ -19,26 +19,21 @@ import { soundService } from './services/sound';
 function MainApp() {
   const { user, driver, activeRole, token } = useAuth();
 
-  // Coordinates (Default SF landmarks, or user's GPS)
   const [pickupCoords, setPickupCoords] = useState([18.5285, 73.8743]);
   const [dropCoords, setDropCoords] = useState([18.5912, 73.7390]);
   const [pickupAddress, setPickupAddress] = useState('Pune Railway Station, Pune');
   const [dropAddress, setDropAddress] = useState('Hinjewadi IT Park, Pune');
 
-  // Selected Category
   const [selectedCategory, setSelectedCategory] = useState('MINI');
 
-  // Real OSRM Road Route
   const [routeCoordinates, setRouteCoordinates] = useState([]);
   const [distanceKm, setDistanceKm] = useState(6.4);
   const [durationMinutes, setDurationMinutes] = useState(3);
 
-  // Live Driver Movement Telemetry
   const [activeDriverCoords, setActiveDriverCoords] = useState(null);
   const [activeDriverHeading, setActiveDriverHeading] = useState(0);
   const [activeDriverSpeed, setActiveDriverSpeed] = useState(35);
 
-  // Active Ride & UI states
   const [activeRide, setActiveRide] = useState(null);
   const [incomingOffer, setIncomingOffer] = useState(null);
   const [isBooking, setIsBooking] = useState(false);
@@ -48,10 +43,8 @@ function MainApp() {
   const [authInitialMode, setAuthInitialMode] = useState('login');
   const [apiError, setApiError] = useState(null);
 
-  // Driving animation ref
   const driveIntervalRef = useRef(null);
 
-  // Pricing calculation in INR (₹) matching screenshot (Mini: ₹168 base for ~6km)
   const calculateFare = (vehId = selectedCategory) => {
     switch (vehId) {
       case 'AUTO':
@@ -69,7 +62,6 @@ function MainApp() {
 
   const currentFare = calculateFare();
 
-  // 1. WebSocket STOMP Connection
   useEffect(() => {
     wsService.connect();
 
@@ -83,7 +75,6 @@ function MainApp() {
     };
   }, []);
 
-  // 2. Active Ride WebSocket Subscriptions
   useEffect(() => {
     if (!activeRide || !activeRide.id) return;
 
@@ -113,7 +104,6 @@ function MainApp() {
     };
   }, [activeRide?.id]);
 
-  // 3. Fallback polling for ride state
   useEffect(() => {
     if (!activeRide || !activeRide.id || activeRide.status === 'COMPLETED' || activeRide.status === 'CANCELLED') {
       return;
@@ -133,7 +123,6 @@ function MainApp() {
     return () => clearInterval(interval);
   }, [activeRide?.id, activeRide?.status, isPaymentOpen]);
 
-  // 4. Fetch Real Road Geometry from OSRM
   useEffect(() => {
     let isCancelled = false;
 
@@ -157,7 +146,6 @@ function MainApp() {
     };
   }, [pickupCoords, dropCoords]);
 
-  // 5. GPS "Locate Me"
   const handleLocateMe = () => {
     if (!navigator.geolocation) {
       alert('Geolocation is not supported by your browser');
@@ -179,24 +167,22 @@ function MainApp() {
     );
   };
 
-  // 6. Real-time Driver GPS Simulation
   useEffect(() => {
+    if (!activeRide) return;
+
     if (driveIntervalRef.current) {
       clearInterval(driveIntervalRef.current);
       driveIntervalRef.current = null;
     }
 
-    if (!activeRide || !activeRide.status) {
-      setActiveDriverCoords(null);
-      return;
-    }
-
-    // Step A: Driver is assigned, driving to pickup
-    if (activeRide.status === 'DRIVER_ASSIGNED') {
-      const driverStart = [activeRide.pickupLat + 0.008, activeRide.pickupLng - 0.006];
+    if (activeRide.status === 'ACCEPTED' && pickupCoords) {
+      const driverStart = [
+        pickupCoords[0] + (Math.random() - 0.5) * 0.02,
+        pickupCoords[1] + (Math.random() - 0.5) * 0.02,
+      ];
       setActiveDriverCoords(driverStart);
 
-      getRealDrivingRoute(driverStart, [activeRide.pickupLat, activeRide.pickupLng]).then((toPickupRoute) => {
+      getRealDrivingRoute(driverStart, pickupCoords).then((toPickupRoute) => {
         if (!toPickupRoute || toPickupRoute.coordinates.length < 2) return;
 
         const path = toPickupRoute.coordinates;
@@ -222,7 +208,6 @@ function MainApp() {
       });
     }
 
-    // Step B: Trip In Progress, driving to destination
     if (activeRide.status === 'IN_PROGRESS' && routeCoordinates.length > 1) {
       let stepIdx = 0;
       const path = routeCoordinates;
@@ -254,7 +239,6 @@ function MainApp() {
     };
   }, [activeRide?.status, routeCoordinates]);
 
-  // Handle map click
   const handleMapClick = async (latlng) => {
     if (!pickupCoords) {
       setPickupCoords([latlng.lat, latlng.lng]);
@@ -267,7 +251,6 @@ function MainApp() {
     }
   };
 
-  // Book Ride
   const handleBookRide = async () => {
     if (!user || !token) {
       setAuthInitialMode('signup');
@@ -300,13 +283,12 @@ function MainApp() {
       setActiveRide(realRide);
       setIncomingOffer(realRide);
     } catch (err) {
-      setApiError(err.response?.data?.message || 'Failed to dispatch ride to backend API');
+      setApiError(err.response?.data?.message || 'Failed to dispatch ride');
     } finally {
       setIsBooking(false);
     }
   };
 
-  // Driver actions
   const handleAcceptOffer = async () => {
     const targetRide = incomingOffer || activeRide;
     if (!targetRide || !targetRide.id) return;
@@ -335,7 +317,7 @@ function MainApp() {
       setActiveRide(updated);
       soundService.playTripStartedSound();
     } catch (err) {
-      alert(err.response?.data?.message || 'Invalid verification PIN! Checked against backend database.');
+      alert(err.response?.data?.message || 'Invalid verification PIN');
     }
   };
 
@@ -362,7 +344,6 @@ function MainApp() {
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-[#0E131F] flex flex-col selection:bg-vayro-lime selection:text-black">
-      {/* Top Navbar */}
       <Navbar
         onOpenHistory={() => setIsHistoryOpen(true)}
         onOpenAuth={(mode) => {
@@ -371,7 +352,6 @@ function MainApp() {
         }}
       />
 
-      {/* Main Hero Section with Booking & Live Map Device (Images 1 & 2) */}
       <VayroHero
         pickupAddress={pickupAddress}
         dropAddress={dropAddress}
@@ -400,26 +380,21 @@ function MainApp() {
         onMapClick={handleMapClick}
       />
 
-      {/* Ride Categories Section: "A ride for every trip" (Image 3) */}
       <RideCategories
         selectedCategory={selectedCategory}
         onSelectCategory={(catId) => setSelectedCategory(catId)}
       />
 
-      {/* How It Works Section: "Three steps to your ride" (Image 4) */}
       <HowItWorks />
 
-      {/* Safety Section: "Built to feel safe, every time." (Image 4 & 5) */}
       <SafetySection />
 
-      {/* CTA Banner & Footer (Image 5) */}
       <CtaBanner
         onBookClick={() => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       />
 
-      {/* Floating Active Trip Modal (when ride is ongoing for Rider) */}
       {activeRide && activeRole === 'ROLE_RIDER' && (
         <div className="fixed bottom-6 right-6 z-50 animate-bounce-short">
           <RideTrackerModal
@@ -430,7 +405,6 @@ function MainApp() {
         </div>
       )}
 
-      {/* Floating Driver Panel (when role is Driver) */}
       {activeRole === 'ROLE_DRIVER' && (
         <div className="fixed bottom-6 left-6 z-50 max-w-sm sm:max-w-md w-full animate-fade-in">
           <DriverWidget
@@ -445,7 +419,6 @@ function MainApp() {
         </div>
       )}
 
-      {/* Payment & Tax Invoice Modal */}
       {isPaymentOpen && (
         <PaymentModal
           ride={activeRide}
@@ -457,13 +430,11 @@ function MainApp() {
         />
       )}
 
-      {/* Trip History Drawer */}
       <HistoryModal
         isOpen={isHistoryOpen}
         onClose={() => setIsHistoryOpen(false)}
       />
 
-      {/* Login & Sign Up Authentication Modal */}
       <AuthModal
         isOpen={isAuthOpen}
         initialMode={authInitialMode}
