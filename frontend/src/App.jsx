@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
-import RidewaveHero from './components/RidewaveHero';
+import VayroHero from './components/VayroHero';
 import RideCategories from './components/RideCategories';
 import HowItWorks from './components/HowItWorks';
 import SafetySection from './components/SafetySection';
@@ -20,10 +20,10 @@ function MainApp() {
   const { user, driver, activeRole, token } = useAuth();
 
   // Coordinates (Default SF landmarks, or user's GPS)
-  const [pickupCoords, setPickupCoords] = useState([37.7749, -122.4194]);
-  const [dropCoords, setDropCoords] = useState([37.7879, -122.4075]);
-  const [pickupAddress, setPickupAddress] = useState('Market St & Ferry Building, SF');
-  const [dropAddress, setDropAddress] = useState('Union Square, Post St, SF');
+  const [pickupCoords, setPickupCoords] = useState([18.5285, 73.8743]);
+  const [dropCoords, setDropCoords] = useState([18.5912, 73.7390]);
+  const [pickupAddress, setPickupAddress] = useState('Pune Railway Station, Pune');
+  const [dropAddress, setDropAddress] = useState('Hinjewadi IT Park, Pune');
 
   // Selected Category
   const [selectedCategory, setSelectedCategory] = useState('MINI');
@@ -361,7 +361,7 @@ function MainApp() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF8] text-[#0E131F] flex flex-col selection:bg-ridewave-lime selection:text-black">
+    <div className="min-h-screen bg-[#FAFAF8] text-[#0E131F] flex flex-col selection:bg-vayro-lime selection:text-black">
       {/* Top Navbar */}
       <Navbar
         onOpenHistory={() => setIsHistoryOpen(true)}
@@ -372,7 +372,7 @@ function MainApp() {
       />
 
       {/* Main Hero Section with Booking & Live Map Device (Images 1 & 2) */}
-      <RidewaveHero
+      <VayroHero
         pickupAddress={pickupAddress}
         dropAddress={dropAddress}
         onSelectPickup={(coords, address) => {

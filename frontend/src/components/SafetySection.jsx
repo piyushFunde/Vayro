@@ -19,7 +19,7 @@ export default function SafetySection() {
           {/* Right Safety Cards */}
           <div className="lg:col-span-7 space-y-4">
             <div className="bg-[#182030] rounded-2xl p-5 border border-slate-700/50 flex items-start space-x-4">
-              <div className="p-2.5 rounded-xl bg-ridewave-lime/10 text-ridewave-lime flex-shrink-0 mt-0.5">
+              <div className="p-2.5 rounded-xl bg-vayro-lime/10 text-vayro-lime flex-shrink-0 mt-0.5">
                 <Lock className="w-5 h-5" />
               </div>
               <div>
@@ -31,7 +31,7 @@ export default function SafetySection() {
             </div>
 
             <div className="bg-[#182030] rounded-2xl p-5 border border-slate-700/50 flex items-start space-x-4">
-              <div className="p-2.5 rounded-xl bg-ridewave-lime/10 text-ridewave-lime flex-shrink-0 mt-0.5">
+              <div className="p-2.5 rounded-xl bg-vayro-lime/10 text-vayro-lime flex-shrink-0 mt-0.5">
                 <Share2 className="w-5 h-5" />
               </div>
               <div>
@@ -43,7 +43,7 @@ export default function SafetySection() {
             </div>
 
             <div className="bg-[#182030] rounded-2xl p-5 border border-slate-700/50 flex items-start space-x-4">
-              <div className="p-2.5 rounded-xl bg-ridewave-lime/10 text-ridewave-lime flex-shrink-0 mt-0.5">
+              <div className="p-2.5 rounded-xl bg-vayro-lime/10 text-vayro-lime flex-shrink-0 mt-0.5">
                 <ShieldAlert className="w-5 h-5" />
               </div>
               <div>

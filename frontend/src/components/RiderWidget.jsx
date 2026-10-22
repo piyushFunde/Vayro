@@ -235,10 +235,10 @@ export default function RiderWidget({
       <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 text-[11px] text-slate-300">
         <span className="text-[10px] text-slate-500 font-semibold uppercase flex-shrink-0">Quick:</span>
         {[
-          { label: '✈️ Airport', query: 'San Francisco International Airport' },
-          { label: '🏙️ Downtown', query: 'Union Square, San Francisco' },
-          { label: '🌉 Golden Gate', query: 'Golden Gate Bridge, SF' },
-          { label: '🚆 Station', query: 'SF Transbay Transit Center' },
+          { label: '✈️ Airport', query: 'Pune International Airport, Lohegaon' },
+          { label: '🏙️ FC Road', query: 'Fergusson College Road, Pune' },
+          { label: '🏛️ Shaniwar Wada', query: 'Shaniwar Wada, Pune' },
+          { label: '🚆 Station', query: 'Pune Railway Station, Pune' },
         ].map((pill, i) => (
           <button
             key={i}

@@ -10,15 +10,15 @@ export default function Navbar({ onOpenHistory, onOpenAuth }) {
     <header className="sticky top-0 z-30 w-full bg-[#FAFAF8]/95 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-8 py-3.5 flex items-center justify-between transition-all">
       {/* Brand Logo & Navigation */}
       <div className="flex items-center space-x-6 lg:space-x-8">
-        {/* Ridewave Logo */}
+        {/* Vayro Logo */}
         <div className="flex items-center space-x-2.5 cursor-pointer">
           <div className="w-9 h-9 rounded-xl bg-[#0E131F] flex items-center justify-center shadow-sm">
-            <svg className="w-5 h-5 text-ridewave-lime" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+            <svg className="w-5 h-5 text-vayro-lime" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M2 12c3-5 6-5 9 0s6 5 9 0" />
             </svg>
           </div>
           <span className="font-extrabold text-xl tracking-tight text-[#0E131F]">
-            Ridewave
+            Vayro
           </span>
         </div>
 
@@ -60,7 +60,7 @@ export default function Navbar({ onOpenHistory, onOpenAuth }) {
             onClick={() => switchRole('ROLE_DRIVER')}
             className={`px-3 py-1 rounded-full transition-all ${
               activeRole === 'ROLE_DRIVER'
-                ? 'bg-ridewave-lime text-[#0E131F] font-bold shadow-sm'
+                ? 'bg-vayro-lime text-[#0E131F] font-bold shadow-sm'
                 : 'text-slate-600 hover:text-black'
             }`}
           >
@@ -85,7 +85,7 @@ export default function Navbar({ onOpenHistory, onOpenAuth }) {
               onClick={() => setShowProfileMenu(!showProfileMenu)}
               className="flex items-center space-x-2 p-1.5 sm:px-3 sm:py-1.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 transition shadow-sm"
             >
-              <div className="w-7 h-7 rounded-full bg-ridewave-lime flex items-center justify-center font-bold text-xs text-[#0E131F]">
+              <div className="w-7 h-7 rounded-full bg-vayro-lime flex items-center justify-center font-bold text-xs text-[#0E131F]">
                 {user.fullName?.charAt(0) || 'U'}
               </div>
               <div className="hidden sm:block text-left text-xs font-bold text-[#0E131F] max-w-[100px] truncate">

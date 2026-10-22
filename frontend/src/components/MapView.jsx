@@ -3,8 +3,8 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap, useMapEvents 
 import L from 'leaflet';
 import { Navigation, Moon, Sun, Crosshair } from 'lucide-react';
 
-// Create custom markers matching Ridewave screenshot
-const createRidewaveIcon = (type, options = {}) => {
+// Create custom markers matching Vayro screenshot
+const createVayroIcon = (type, options = {}) => {
   let innerHtml = '';
   const { heading = 0 } = options;
 
@@ -21,7 +21,7 @@ const createRidewaveIcon = (type, options = {}) => {
     // Lime rounded square
     innerHtml = `
       <div class="relative flex items-center justify-center">
-        <div class="w-6 h-6 rounded-lg bg-ridewave-lime border-2 border-white shadow-lg flex items-center justify-center">
+        <div class="w-6 h-6 rounded-lg bg-vayro-lime border-2 border-white shadow-lg flex items-center justify-center">
           <div class="w-2 h-2 rounded-sm bg-[#0E131F]"></div>
         </div>
       </div>
@@ -92,7 +92,7 @@ export default function MapView({
   selectedCategory = 'Mini',
   onMapClick,
 }) {
-  const defaultCenter = pickupCoords || [37.7749, -122.4194];
+  const defaultCenter = pickupCoords || [18.5285, 73.8743];
 
   // Route bounds
   const bounds =
@@ -110,7 +110,7 @@ export default function MapView({
       : pickupCoords);
 
   return (
-    <div className="relative w-full h-full min-h-[460px] rounded-3xl overflow-hidden bg-[#111622] ridewave-map">
+    <div className="relative w-full h-full min-h-[460px] rounded-3xl overflow-hidden bg-[#111622] vayro-map">
       <MapContainer
         center={defaultCenter}
         zoom={13}
@@ -157,7 +157,7 @@ export default function MapView({
 
         {/* Start Point Marker (White ring) */}
         {pickupCoords && (
-          <Marker position={pickupCoords} icon={createRidewaveIcon('start')}>
+          <Marker position={pickupCoords} icon={createVayroIcon('start')}>
             <Popup>
               <div className="text-xs font-bold text-slate-900">Pickup Location</div>
             </Popup>
@@ -166,7 +166,7 @@ export default function MapView({
 
         {/* End Point Marker (Lime square) */}
         {dropCoords && (
-          <Marker position={dropCoords} icon={createRidewaveIcon('end')}>
+          <Marker position={dropCoords} icon={createVayroIcon('end')}>
             <Popup>
               <div className="text-xs font-bold text-slate-900">Destination</div>
             </Popup>
@@ -177,7 +177,7 @@ export default function MapView({
         {carPosition && (
           <Marker
             position={carPosition}
-            icon={createRidewaveIcon('car', { heading: activeDriverHeading })}
+            icon={createVayroIcon('car', { heading: activeDriverHeading })}
           >
             <Popup>
               <div className="text-xs font-bold text-slate-900">
@@ -190,7 +190,7 @@ export default function MapView({
 
       {/* Floating Driver Status Card (Top-Left) matching Image 1 */}
       <div className="absolute top-5 left-5 z-20 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center space-x-3 border border-slate-100 backdrop-blur-md">
-        <div className="w-10 h-10 rounded-full bg-ridewave-lime flex items-center justify-center font-bold text-xs text-[#0E131F]">
+        <div className="w-10 h-10 rounded-full bg-vayro-lime flex items-center justify-center font-bold text-xs text-[#0E131F]">
           {activeRide?.driver?.user?.fullName
             ? activeRide.driver.user.fullName.split(' ').map((n) => n[0]).join('').slice(0, 2)
             : 'RK'}

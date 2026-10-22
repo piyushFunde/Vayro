@@ -3,7 +3,7 @@ import { Navigation, Clock, Tag, X, MapPin } from 'lucide-react';
 import MapView from './MapView';
 import { searchPlaces } from '../services/routing';
 
-export default function RidewaveHero({
+export default function VayroHero({
   pickupAddress,
   dropAddress,
   onSelectPickup,
@@ -92,7 +92,7 @@ export default function RidewaveHero({
         <div className="lg:col-span-5 flex flex-col justify-center space-y-6">
           {/* Top Pill Badge */}
           <div>
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-ridewave-limeLight text-[#0E131F] text-xs font-semibold">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-vayro-limeLight text-[#0E131F] text-xs font-semibold">
               <span className="text-emerald-700">📍</span>
               <span>Rides available 24/7 in your city</span>
             </div>
@@ -244,7 +244,7 @@ export default function RidewaveHero({
               type="button"
               onClick={onBookRide}
               disabled={isBooking}
-              className="w-full mt-5 py-4 px-6 bg-ridewave-lime hover:bg-ridewave-limeHover text-[#0E131F] font-bold text-sm sm:text-base rounded-2xl transition shadow-sm flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="w-full mt-5 py-4 px-6 bg-vayro-lime hover:bg-vayro-limeHover text-[#0E131F] font-bold text-sm sm:text-base rounded-2xl transition shadow-sm flex items-center justify-center space-x-2 disabled:opacity-50"
             >
               <span>{isBooking ? 'Searching Nearest Drivers...' : 'See prices →'}</span>
             </button>
@@ -276,7 +276,7 @@ export default function RidewaveHero({
       {showPromoBanner && (
         <div className="w-full mt-8 bg-[#111622] rounded-2xl p-4 sm:px-6 flex items-center justify-between text-white shadow-sm border border-slate-800">
           <div className="flex items-center space-x-3 text-xs sm:text-sm">
-            <span className="text-ridewave-lime">
+            <span className="text-vayro-lime">
               <Tag className="w-4 h-4" />
             </span>
             <span className="font-medium text-slate-200">

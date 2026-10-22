@@ -49,7 +49,7 @@ export default function DriverWidget({
             <span
               className={`px-2.5 py-0.5 text-[10px] font-bold rounded-full ${
                 isOnline
-                  ? 'bg-ridewave-lime text-[#0E131F]'
+                  ? 'bg-vayro-lime text-[#0E131F]'
                   : 'bg-slate-100 text-slate-500'
               }`}
             >
@@ -65,7 +65,7 @@ export default function DriverWidget({
           className={`flex items-center space-x-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all ${
             isOnline
               ? 'bg-[#0E131F] text-white hover:bg-black'
-              : 'bg-ridewave-lime text-[#0E131F] hover:bg-ridewave-limeHover'
+              : 'bg-vayro-lime text-[#0E131F] hover:bg-vayro-limeHover'
           }`}
         >
           <Power className="w-3.5 h-3.5" />
@@ -91,12 +91,12 @@ export default function DriverWidget({
 
       {/* Incoming Ride Offer Overlay Card */}
       {incomingOffer && !activeRide && (
-        <div className="p-5 rounded-2xl border-2 border-ridewave-lime bg-[#FAFAF8] shadow-lg space-y-3">
+        <div className="p-5 rounded-2xl border-2 border-vayro-lime bg-[#FAFAF8] shadow-lg space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-[#0E131F] uppercase tracking-wide">
               New Trip Dispatch
             </span>
-            <span className="px-2.5 py-0.5 bg-[#0E131F] text-ridewave-lime font-mono text-xs font-bold rounded-full">
+            <span className="px-2.5 py-0.5 bg-[#0E131F] text-vayro-lime font-mono text-xs font-bold rounded-full">
               {offerCountdown}s
             </span>
           </div>
@@ -114,7 +114,7 @@ export default function DriverWidget({
               <span className="truncate">{incomingOffer.pickupAddress}</span>
             </div>
             <div className="flex items-center space-x-2 text-slate-700">
-              <span className="w-2.5 h-2.5 rounded-sm bg-ridewave-lime border border-[#0E131F] flex-shrink-0"></span>
+              <span className="w-2.5 h-2.5 rounded-sm bg-vayro-lime border border-[#0E131F] flex-shrink-0"></span>
               <span className="truncate">{incomingOffer.dropAddress}</span>
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function DriverWidget({
           <div className="flex space-x-2 pt-2">
             <button
               onClick={onAcceptOffer}
-              className="flex-1 py-3 bg-ridewave-lime hover:bg-ridewave-limeHover text-[#0E131F] font-bold text-xs rounded-xl transition shadow-sm"
+              className="flex-1 py-3 bg-vayro-lime hover:bg-vayro-limeHover text-[#0E131F] font-bold text-xs rounded-xl transition shadow-sm"
             >
               Accept Trip
             </button>
@@ -160,7 +160,7 @@ export default function DriverWidget({
               onClick={() => onMarkArrived(activeRide.id)}
               className="w-full py-3.5 bg-[#0E131F] hover:bg-black text-white font-bold text-xs rounded-2xl shadow-sm transition flex items-center justify-center space-x-2"
             >
-              <Navigation className="w-4 h-4 text-ridewave-lime" />
+              <Navigation className="w-4 h-4 text-vayro-lime" />
               <span>I Have Arrived at Pickup</span>
             </button>
           )}
@@ -182,7 +182,7 @@ export default function DriverWidget({
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-ridewave-lime hover:bg-ridewave-limeHover text-[#0E131F] font-bold text-xs rounded-xl transition"
+                  className="px-4 py-2 bg-vayro-lime hover:bg-vayro-limeHover text-[#0E131F] font-bold text-xs rounded-xl transition"
                 >
                   Verify & Start
                 </button>
@@ -195,7 +195,7 @@ export default function DriverWidget({
           {activeRide.status === 'IN_PROGRESS' && (
             <button
               onClick={() => onCompleteRide(activeRide.id)}
-              className="w-full py-3.5 bg-ridewave-lime hover:bg-ridewave-limeHover text-[#0E131F] font-bold text-xs rounded-2xl shadow-sm transition flex items-center justify-center space-x-2"
+              className="w-full py-3.5 bg-vayro-lime hover:bg-vayro-limeHover text-[#0E131F] font-bold text-xs rounded-2xl shadow-sm transition flex items-center justify-center space-x-2"
             >
               <CheckCircle className="w-4 h-4" />
               <span>Arrived at Destination — Complete Trip</span>

@@ -47,7 +47,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
           phoneNumber: phoneNumber.trim(),
           role,
         });
-        setSuccessMsg('Account created successfully! Welcome to Ridewave.');
+        setSuccessMsg('Account created successfully! Welcome to Vayro.');
         setTimeout(() => {
           onClose();
         }, 500);
@@ -74,11 +74,11 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
         {/* Brand Header */}
         <div className="flex items-center space-x-2.5 mb-6">
           <div className="w-8 h-8 rounded-xl bg-[#0E131F] flex items-center justify-center shadow-sm">
-            <svg className="w-4 h-4 text-ridewave-lime" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+            <svg className="w-4 h-4 text-vayro-lime" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M2 12c3-5 6-5 9 0s6 5 9 0" />
             </svg>
           </div>
-          <span className="font-extrabold text-lg text-[#0E131F]">Ridewave Account</span>
+          <span className="font-extrabold text-lg text-[#0E131F]">Vayro Account</span>
         </div>
 
         {/* Tab Switcher */}
@@ -155,7 +155,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
                     type="tel"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="+91 98765 43210"
+                    placeholder="Enter phone number"
                     required
                     className="w-full pl-10 pr-4 py-2.5 bg-[#F3F4F6] rounded-xl text-sm font-medium text-[#0E131F] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0E131F]"
                   />
@@ -181,7 +181,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
                     onClick={() => setRole('ROLE_DRIVER')}
                     className={`flex-1 py-2.5 rounded-xl text-xs font-bold border transition ${
                       role === 'ROLE_DRIVER'
-                        ? 'bg-ridewave-lime text-[#0E131F] border-ridewave-lime'
+                        ? 'bg-vayro-lime text-[#0E131F] border-vayro-lime'
                         : 'bg-[#F3F4F6] text-slate-700 border-transparent hover:bg-slate-200'
                     }`}
                   >
@@ -200,7 +200,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@example.com"
+                placeholder="Enter your email"
                 required
                 className="w-full pl-10 pr-4 py-2.5 bg-[#F3F4F6] rounded-xl text-sm font-medium text-[#0E131F] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0E131F]"
               />
@@ -215,7 +215,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="Enter your password"
                 required
                 className="w-full pl-10 pr-4 py-2.5 bg-[#F3F4F6] rounded-xl text-sm font-medium text-[#0E131F] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0E131F]"
               />
@@ -225,7 +225,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-2 py-3.5 px-4 bg-ridewave-lime hover:bg-ridewave-limeHover text-[#0E131F] font-bold text-sm rounded-2xl shadow-sm transition flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer"
+            className="w-full mt-2 py-3.5 px-4 bg-vayro-lime hover:bg-vayro-limeHover text-[#0E131F] font-bold text-sm rounded-2xl shadow-sm transition flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer"
           >
             <span>{loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : 'Create My Account'}</span>
             <ArrowRight className="w-4 h-4" />

@@ -13,14 +13,14 @@ export default function RideTrackerModal({
       case 'REQUESTED':
         return {
           title: 'Searching for Nearby Drivers...',
-          subtitle: 'Dispatching to top-rated Ridewave partners',
+          subtitle: 'Dispatching to top-rated Vayro partners',
           color: 'bg-amber-100 text-amber-800 border-amber-200',
         };
       case 'DRIVER_ASSIGNED':
         return {
           title: 'Driver En Route to Pickup',
           subtitle: `${ride.driver?.vehicleModel || 'Vehicle'} • Arriving in ~3 mins`,
-          color: 'bg-ridewave-lime text-[#0E131F] font-bold border-ridewave-lime',
+          color: 'bg-vayro-lime text-[#0E131F] font-bold border-vayro-lime',
         };
       case 'DRIVER_ARRIVED':
         return {
@@ -76,7 +76,7 @@ export default function RideTrackerModal({
       {/* Verification OTP Box */}
       <div className="rounded-2xl p-4 flex items-center justify-between border border-slate-200 bg-[#FAFAF8]">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-ridewave-lime flex items-center justify-center text-[#0E131F] font-bold">
+          <div className="w-10 h-10 rounded-xl bg-vayro-lime flex items-center justify-center text-[#0E131F] font-bold">
             <Key className="w-5 h-5" />
           </div>
           <div>
@@ -94,7 +94,7 @@ export default function RideTrackerModal({
         <div className="rounded-2xl p-4 space-y-3 bg-[#F9F9F7] border border-slate-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 rounded-full bg-ridewave-lime flex items-center justify-center font-bold text-[#0E131F] text-base shadow-sm">
+              <div className="w-12 h-12 rounded-full bg-vayro-lime flex items-center justify-center font-bold text-[#0E131F] text-base shadow-sm">
                 {ride.driver.user?.fullName
                   ? ride.driver.user.fullName.split(' ').map((n) => n[0]).join('').slice(0, 2)
                   : 'RK'}
@@ -145,7 +145,7 @@ export default function RideTrackerModal({
           </div>
         </div>
         <div className="flex items-start space-x-2.5">
-          <div className="w-2.5 h-2.5 rounded-sm bg-ridewave-lime mt-1 flex-shrink-0 border border-slate-800"></div>
+          <div className="w-2.5 h-2.5 rounded-sm bg-vayro-lime mt-1 flex-shrink-0 border border-slate-800"></div>
           <div>
             <span className="text-[10px] text-slate-400 uppercase font-semibold block">Destination</span>
             <span className="text-slate-800 font-medium">{ride.dropAddress}</span>
@@ -158,7 +158,7 @@ export default function RideTrackerModal({
         {ride.status === 'COMPLETED' ? (
           <button
             onClick={onOpenPayment}
-            className="w-full py-3.5 bg-ridewave-lime hover:bg-ridewave-limeHover text-[#0E131F] font-bold text-sm rounded-2xl shadow-sm transition flex items-center justify-center space-x-2"
+            className="w-full py-3.5 bg-vayro-lime hover:bg-vayro-limeHover text-[#0E131F] font-bold text-sm rounded-2xl shadow-sm transition flex items-center justify-center space-x-2"
           >
             <CheckCircle className="w-4 h-4" />
             <span>Pay & Download Receipt (₹{ride.finalFare})</span>

@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        ridewave: {
+        vayro: {
           lime: '#CBF932',
           limeHover: '#B5F20D',
           limeLight: '#E8FBA2',
@@ -40,8 +40,8 @@ export default {
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        'ridewave': '0 10px 30px -5px rgba(0, 0, 0, 0.05)',
-        'ridewave-dark': '0 20px 40px -10px rgba(0, 0, 0, 0.4)',
+        'vayro': '0 10px 30px -5px rgba(0, 0, 0, 0.05)',
+        'vayro-dark': '0 20px 40px -10px rgba(0, 0, 0, 0.4)',
         'lime-glow': '0 0 25px -4px rgba(203, 249, 50, 0.4)',
       }
     },

@@ -11,7 +11,7 @@
   }
 }
 
-/* Custom Leaflet Map styling for Ridewave Dark Map */
+/* Custom Leaflet Map styling for Vayro Dark Map */
 .leaflet-container {
   width: 100% !important;
   height: 100% !important;
@@ -21,7 +21,7 @@
 }
 
 /* Dark City Map Filter */
-.ridewave-map .leaflet-tile-pane {
+.vayro-map .leaflet-tile-pane {
   filter: brightness(0.65) invert(0.92) contrast(1.15) hue-rotate(190deg) saturate(0.25);
 }
 
