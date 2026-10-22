@@ -1,23 +1,18 @@
 import axios from 'axios';
 
 export function getBackendBaseUrl() {
+  let url = import.meta.env.VITE_API_BASE_URL || '';
   if (typeof window !== 'undefined') {
     const custom = localStorage.getItem('vayro_backend_url');
     if (custom && custom.trim()) {
-      return custom.trim().replace(/\/+$/, '');
+      url = custom.trim();
     }
   }
 
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL.replace(/\/+$/, '');
+  if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+    url = `https://${url}`;
   }
-
-  // Automatically detect Render deployment
-  if (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com')) {
-    return 'https://vayro-backend.onrender.com';
-  }
-
-  return '';
+  return url.replace(/\/+$/, '');
 }
 
 export function getApiBaseUrl() {
