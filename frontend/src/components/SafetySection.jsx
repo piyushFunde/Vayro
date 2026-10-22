@@ -3,7 +3,7 @@ import { Lock, Share2, ShieldAlert } from 'lucide-react';
 
 export default function SafetySection() {
   return (
-    <section id="safety" className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-8">
+    <section id="safety" className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-8 scroll-mt-24">
       <div className="bg-[#111622] rounded-3xl p-8 sm:p-12 text-white shadow-xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Title & Description */}

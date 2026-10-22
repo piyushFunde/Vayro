@@ -5,14 +5,40 @@ import { History, LogOut, User, Car } from 'lucide-react';
 export default function Navbar({ onOpenHistory, onOpenAuth }) {
   const { user, driver, activeRole, switchRole, logout } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [activeNav, setActiveNav] = useState('rides');
+
+  const scrollToTop = () => {
+    setActiveNav('rides');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToSection = (id, navKey) => {
+    setActiveNav(navKey);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleDriveWithUs = () => {
+    setActiveNav('drive');
+    if (user) {
+      switchRole('ROLE_DRIVER');
+    } else {
+      onOpenAuth('register');
+    }
+  };
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-[#FAFAF8]/95 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-8 py-3.5 flex items-center justify-between transition-all">
+    <header className="sticky top-0 z-30 w-full bg-[#FAFAF8] border-b border-slate-200 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-sm transition-all">
       {/* Brand Logo & Navigation */}
       <div className="flex items-center space-x-6 lg:space-x-8">
         {/* Vayro Logo */}
-        <div className="flex items-center space-x-2.5 cursor-pointer">
-          <div className="w-9 h-9 rounded-xl bg-[#0E131F] flex items-center justify-center shadow-sm">
+        <div
+          onClick={scrollToTop}
+          className="flex items-center space-x-2.5 cursor-pointer select-none group"
+        >
+          <div className="w-9 h-9 rounded-xl bg-[#0E131F] group-hover:scale-105 transition-transform flex items-center justify-center shadow-sm">
             <svg className="w-5 h-5 text-vayro-lime" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M2 12c3-5 6-5 9 0s6 5 9 0" />
             </svg>
@@ -24,18 +50,43 @@ export default function Navbar({ onOpenHistory, onOpenAuth }) {
 
         {/* Desktop Nav Links */}
         <nav className="hidden md:flex items-center space-x-1 text-sm font-medium">
-          <button className="px-3.5 py-1.5 rounded-full bg-[#EAECE6] text-[#0E131F] font-semibold transition">
+          <button
+            onClick={scrollToTop}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+              activeNav === 'rides'
+                ? 'bg-[#EAECE6] text-[#0E131F] shadow-xs'
+                : 'text-slate-600 hover:text-[#0E131F] hover:bg-[#EAECE6]/50'
+            }`}
+          >
             Rides
           </button>
-          <a href="#how-it-works" className="px-3 py-1.5 text-slate-600 hover:text-[#0E131F] transition">
-            How it works
-          </a>
-          <a href="#safety" className="px-3 py-1.5 text-slate-600 hover:text-[#0E131F] transition">
-            Safety
-          </a>
           <button
-            onClick={() => switchRole('ROLE_DRIVER')}
-            className="px-3 py-1.5 text-slate-600 hover:text-[#0E131F] transition"
+            onClick={() => scrollToSection('how-it-works', 'how-it-works')}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+              activeNav === 'how-it-works'
+                ? 'bg-[#EAECE6] text-[#0E131F] shadow-xs'
+                : 'text-slate-600 hover:text-[#0E131F] hover:bg-[#EAECE6]/50'
+            }`}
+          >
+            How it works
+          </button>
+          <button
+            onClick={() => scrollToSection('safety', 'safety')}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+              activeNav === 'safety'
+                ? 'bg-[#EAECE6] text-[#0E131F] shadow-xs'
+                : 'text-slate-600 hover:text-[#0E131F] hover:bg-[#EAECE6]/50'
+            }`}
+          >
+            Safety
+          </button>
+          <button
+            onClick={handleDriveWithUs}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+              activeNav === 'drive'
+                ? 'bg-[#EAECE6] text-[#0E131F] shadow-xs'
+                : 'text-slate-600 hover:text-[#0E131F] hover:bg-[#EAECE6]/50'
+            }`}
           >
             Drive with us
           </button>
