@@ -6,7 +6,6 @@
 Real-time driver tracking, live map routing, JWT authentication, WebSocket communications, and Stripe payment simulation — all deployed and accessible live.
 
 
-</div>
 
 ---
 
@@ -16,6 +15,10 @@ Real-time driver tracking, live map routing, JWT authentication, WebSocket commu
 |:--------|:----|:---------|
 | **Frontend** | [https://vayro-frontend.onrender.com](https://vayro-frontend.onrender.com/) | Render Static Site |
 ---
+
+## Architecture Diagram
+<img width="9414" height="9663" alt="diagram" src="https://github.com/user-attachments/assets/9ce5bb6b-8323-4ae3-9118-d70062acf105" />
+
 
 ##  Features
 
