@@ -18,8 +18,11 @@ class WebSocketService {
     }
 
     const token = localStorage.getItem('vayro_token');
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const brokerURL = `${protocol}//${window.location.host}/ws-cab`;
+    let brokerURL = import.meta.env.VITE_WS_URL;
+    if (!brokerURL) {
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      brokerURL = `${protocol}//${window.location.host}/ws-cab`;
+    }
 
     this.client = new Client({
       brokerURL,
