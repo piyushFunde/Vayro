@@ -28,8 +28,10 @@
 }
 
 /* Dark City Map Filter */
-.vayro-map .leaflet-tile-pane {
+.vayro-map .leaflet-tile-pane,
+.vayro-dark-map .leaflet-tile-pane {
   filter: brightness(0.65) invert(0.92) contrast(1.15) hue-rotate(190deg) saturate(0.25);
+  transition: filter 0.3s ease;
 }
 
 /* Custom Marker Pulsing Animation */
