@@ -419,8 +419,8 @@ function MainApp() {
         }}
       />
 
-      {/* Floating Active Trip Modal (when ride is ongoing) */}
-      {activeRide && (
+      {/* Floating Active Trip Modal (when ride is ongoing for Rider) */}
+      {activeRide && activeRole === 'ROLE_RIDER' && (
         <div className="fixed bottom-6 right-6 z-50 animate-bounce-short">
           <RideTrackerModal
             ride={activeRide}
@@ -431,8 +431,8 @@ function MainApp() {
       )}
 
       {/* Floating Driver Panel (when role is Driver) */}
-      {activeRole === 'ROLE_DRIVER' && !activeRide && (
-        <div className="fixed bottom-6 left-6 z-50">
+      {activeRole === 'ROLE_DRIVER' && (
+        <div className="fixed bottom-6 left-6 z-50 max-w-sm sm:max-w-md w-full animate-fade-in">
           <DriverWidget
             activeRide={activeRide}
             incomingOffer={incomingOffer}

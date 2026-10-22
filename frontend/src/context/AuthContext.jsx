@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { authApi } from '../services/api';
+import { authApi, driverApi } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -68,6 +68,17 @@ export const AuthProvider = ({ children }) => {
     setActiveRole(targetRole);
   };
 
+  const toggleDriverStatus = async () => {
+    const nextStatus = (!driver || driver.status === 'AVAILABLE') ? 'OFFLINE' : 'AVAILABLE';
+    try {
+      await driverApi.updateStatus(nextStatus);
+      setDriver((prev) => (prev ? { ...prev, status: nextStatus } : { status: nextStatus }));
+    } catch (err) {
+      // Fallback local toggle if offline or demo
+      setDriver((prev) => (prev ? { ...prev, status: nextStatus } : { status: nextStatus }));
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -81,6 +92,7 @@ export const AuthProvider = ({ children }) => {
         register,
         logout,
         switchRole,
+        toggleDriverStatus,
         setDriver,
       }}
     >
