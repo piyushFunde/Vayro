@@ -1,73 +1,269 @@
-# 🚖 Vayro — Enterprise Cab Booking Platform
+<div align="center">
 
-> Industry-grade full-stack ride-hailing and fleet management platform built with **Java 17+, Spring Boot 3, Spring Security (JWT + RBAC), PostgreSQL / H2, Spring WebSockets (STOMP), Stripe SDK, iText 7, and React (Vite + Tailwind CSS + Leaflet)**.
+<img src="https://img.shields.io/badge/Live%20Demo-Vayro-CBF932?style=for-the-badge&logo=render&logoColor=black" alt="Live Demo" />
 
----
+# Vayro — Enterprise Ride-Hailing Platform
 
-## 📌 Architecture & Features
+**A production-grade, full-stack cab booking application built with Spring Boot 3 and React.**  
+Real-time driver tracking, live map routing, JWT authentication, WebSocket communications, and Stripe payment simulation — all deployed and accessible live.
 
-- **Rider Workflow:**
-  - Interactive Leaflet Map with dark-themed tiles, pickup/drop pins, and live route polyline.
-  - Multi-tier vehicle selection (`Moto`, `Auto`, `Sedan`, `SUV`, `Luxury`) with real-time fare estimates.
-  - Promo discount engine (`VAYRO50`, `WELCOME20`).
-  - Automated 4-digit PIN / OTP generation for ride verification.
-  - Cashless Stripe checkout simulation.
-  - One-click official Tax Invoice PDF generation and download powered by **iText 7**.
-  - Post-trip 5-star driver review and rating system.
+[![Live App](https://img.shields.io/badge/🌐%20Live%20App-vayro--frontend.onrender.com-CBF932?style=flat-square)](https://vayro-frontend.onrender.com/)
+[![Backend API](https://img.shields.io/badge/🔗%20Backend%20API-vayro--backend.onrender.com-0E131F?style=flat-square)](https://vayro-backend.onrender.com/api/v1)
+[![Java](https://img.shields.io/badge/Java-17-ED8B00?style=flat-square&logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.4-6DB33F?style=flat-square&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
+[![Render](https://img.shields.io/badge/Deployed%20on-Render-46E3B7?style=flat-square&logo=render&logoColor=black)](https://render.com/)
 
-- **Driver Workflow:**
-  - Online / Offline toggle with visual radar broadcast.
-  - Incoming ride offer banner with 15-second countdown timer and Accept/Decline actions.
-  - Turn-by-turn ride management: `DRIVER_ASSIGNED` ➔ `DRIVER_ARRIVED` ➔ Verify Rider PIN ➔ `IN_PROGRESS` ➔ `COMPLETED`.
-  - Earnings tracker, trip counter, and rolling rating average calculation.
-
-- **Enterprise Backend:**
-  - Java 17 + Spring Boot 3.3.4 with clean layered architecture (`controller`, `service`, `repository`, `entity`, `dto`, `security`, `config`, `util`).
-  - Stateless Spring Security filter chain with JJWT 0.12.x tokens and BCrypt password encryption.
-  - Dual-mode database support: zero-config in-memory H2 for instant local development, and PostgreSQL 16 for production.
-  - Real-time STOMP messaging over WebSockets (`/ws-cab`) with fallback.
-  - Complete REST APIs and CORS setup.
+</div>
 
 ---
 
-## ⚡ Quick Start
+## 🌐 Live Deployment
 
-### 1. Run the Spring Boot Backend
+| Service | URL | Platform |
+|:--------|:----|:---------|
+| **Frontend** | [https://vayro-frontend.onrender.com](https://vayro-frontend.onrender.com/) | Render Static Site |
+| **Backend API** | [https://vayro-backend.onrender.com](https://vayro-backend.onrender.com/) | Render Docker Web Service |
 
-The backend is configured to run out-of-the-box in `dev` profile using an in-memory database pre-seeded with test accounts:
+> **Note:** The backend runs on Render's free tier. If it appears to take ~30 seconds to respond after a period of inactivity, it is simply waking up from sleep. Subsequent requests will be fast.
 
-```powershell
-cd backend
-$env:JAVA_HOME = 'C:\Program Files\Java\jdk-17' # If not already in environment
-.\mvnw.cmd spring-boot:run
+---
+
+## 🔑 Demo Credentials
+
+Sign up with any email, or use the pre-seeded demo accounts to explore immediately:
+
+| Role | Email | Password | Details |
+|:-----|:------|:---------|:--------|
+| 🧑 **Rider** | `rider@vayro.com` | `Rider@123` | Book rides, track drivers, pay & rate |
+| 🚗 **Driver 1** | `driver1@vayro.com` | `Driver@123` | Marcus Vance — Toyota Camry, 4.92★ |
+| 🚗 **Driver 2** | `driver2@vayro.com` | `Driver@123` | Elena Rostova — Tesla Model 3, 4.98★ |
+| 🔑 **Admin** | `admin@vayro.com` | `Admin@123` | System administrator |
+
+> **Promo Codes:** `VAYRO50` (50% off, max ₹25) · `WELCOME20` (20% off, max ₹15)
+
+---
+
+## ✨ Features
+
+### 🧑 Rider Experience
+- **Interactive Live Map** — CartoDB Voyager & Dark Matter tile modes, real road routing via OSRM, live driver marker with pulsing animation
+- **Autocomplete Location Search** — Nominatim-powered search with real address suggestions as you type
+- **GPS "Locate Me"** — One-tap GPS detection to auto-fill your pickup location
+- **Multi-Tier Vehicle Selection** — Auto, Mini, Sedan, SUV with real-time INR fare calculation
+- **Live Ride Tracking** — Real-time driver position updates via WebSocket STOMP, full turn-by-turn driver animation
+- **OTP Verification** — Auto-generated 4-digit PIN for secure ride start verification
+- **Trip History** — Full ride history with timestamps, fares, and driver details
+- **Cashless Payment** — Stripe SDK payment intent simulation with card entry
+- **Tax Invoice PDF** — Official GST-compliant invoice generated with iText 8 and downloadable on demand
+- **Driver Rating** — 5-star rating and feedback system post-trip
+
+### 🚗 Driver Experience
+- **Online / Offline Toggle** — Broadcast availability to the dispatch system instantly
+- **Live Incoming Offer Banner** — Real-time ride offer with countdown timer and Accept / Decline controls
+- **Full Trip State Machine** — `ASSIGNED` → `ARRIVED` → PIN Verification → `IN_PROGRESS` → `COMPLETED`
+- **Earnings Dashboard** — Live trip count, rolling average rating, and total earnings tracker
+- **Location Broadcasting** — Continuous heading-aware GPS updates pushed to the backend and riders
+
+### 🔐 Security & Backend
+- **Stateless JWT Authentication** — JJWT 0.12.x with BCrypt password hashing, 24-hour access tokens
+- **Role-Based Access Control** — `ROLE_RIDER`, `ROLE_DRIVER`, `ROLE_ADMIN` at controller and method level
+- **Spring WebSocket (STOMP)** — Real-time bidirectional messaging over `/ws-cab` with JWT header auth
+- **Dual Database Profiles** — H2 in-memory for zero-config dev, PostgreSQL for production
+- **CORS Configuration** — Wildcard origin patterns for flexible deployment
+
+---
+
+## 🏗️ Tech Stack
+
+### Backend
+| Technology | Version | Purpose |
+|:-----------|:--------|:--------|
+| Java | 17 | Language runtime |
+| Spring Boot | 3.3.4 | Application framework |
+| Spring Security | 6.x | Auth, JWT filter chain, RBAC |
+| Spring WebSocket | 6.x | STOMP real-time messaging |
+| Spring Data JPA | 3.x | ORM and database abstraction |
+| H2 Database | Embedded | Zero-config local development |
+| PostgreSQL | 16 | Production database |
+| JJWT | 0.12.6 | JWT token creation and validation |
+| Stripe SDK | 34.0.0 | Payment intent simulation |
+| iText 8 | 8.0.4 | PDF tax invoice generation |
+| Lombok | Latest | Boilerplate reduction |
+| Docker | 24+ | Containerized deployment |
+
+### Frontend
+| Technology | Version | Purpose |
+|:-----------|:--------|:--------|
+| React | 18.3.1 | UI framework |
+| Vite | 5.4.9 | Build tooling and dev server |
+| Tailwind CSS | 3.4.14 | Utility-first styling |
+| Leaflet + React-Leaflet | 1.9 / 4.2 | Interactive map rendering |
+| STOMP.js | 7.0.0 | WebSocket STOMP client |
+| Axios | 1.7.7 | HTTP API client |
+| Lucide React | 0.453 | Icon system |
+| OSRM | Public API | Real road routing engine |
+| Nominatim | Public API | Geocoding and search |
+| CartoDB | Public Tiles | Professional map tile layers |
+
+### Infrastructure
+| Service | Role |
+|:--------|:-----|
+| **Render** | Backend Docker deployment + Frontend Static hosting |
+| **GitHub** | Source control and CI/CD trigger |
+| **Render Blueprint** | `render.yaml` Infrastructure as Code |
+
+---
+
+## 🗂️ Project Structure
+
+```
+Vayro/
+├── backend/                        # Spring Boot Application
+│   ├── src/main/java/com/vayro/cabbooking/
+│   │   ├── config/                 # Security, CORS, WebSocket, DataInitializer
+│   │   ├── controller/             # REST endpoints (Auth, Ride, Driver, Payment, Rating)
+│   │   ├── dto/                    # Request & Response DTOs
+│   │   ├── entity/                 # JPA Entities (User, Driver, Ride, Payment, Rating, PromoCode)
+│   │   ├── enums/                  # Role, DriverStatus, RideStatus, VehicleType
+│   │   ├── exception/              # Global exception handler
+│   │   ├── repository/             # Spring Data JPA repositories
+│   │   ├── security/               # JWT provider, filter, UserPrincipal
+│   │   ├── service/                # Business logic (Auth, Ride, Driver, Invoice)
+│   │   └── util/                   # Helpers
+│   ├── Dockerfile                  # Multi-stage Docker build (JDK 17 → JRE 17 alpine)
+│   └── pom.xml
+│
+├── frontend/                       # React + Vite Application
+│   ├── src/
+│   │   ├── components/             # UI Components
+│   │   │   ├── MapView.jsx         # Leaflet map with CartoDB tiles, markers, route
+│   │   │   ├── VayroHero.jsx       # Hero section with booking form and map
+│   │   │   ├── RideCategories.jsx  # Vehicle selection with custom SVG icons
+│   │   │   ├── Navbar.jsx          # Top navigation bar
+│   │   │   ├── DriverWidget.jsx    # Floating driver control panel
+│   │   │   ├── RideTrackerModal.jsx # Rider active trip tracker
+│   │   │   ├── PaymentModal.jsx    # Stripe payment and invoice UI
+│   │   │   ├── HistoryModal.jsx    # Past rides list
+│   │   │   └── AuthModal.jsx       # Login and Sign Up modal
+│   │   ├── context/
+│   │   │   └── AuthContext.jsx     # Global auth state and JWT management
+│   │   ├── services/
+│   │   │   ├── api.js              # Axios client with JWT interceptor
+│   │   │   ├── websocket.js        # STOMP WebSocket service
+│   │   │   ├── routing.js          # OSRM route fetching and Nominatim search
+│   │   │   └── sound.js            # Web Audio API sound effects
+│   │   └── App.jsx                 # Root component, state management
+│   ├── index.html
+│   └── vite.config.js
+│
+├── render.yaml                     # Render Blueprint (Backend + Frontend services)
+├── docker-compose.yml              # Local full-stack Docker Compose
+└── README.md
 ```
 
-The REST API and WebSocket server will start on `http://localhost:808
-
 ---
 
-### 2. Run the React Frontend
+## ⚡ Local Development
 
-In a separate terminal:
+### Prerequisites
+- Java 17+
+- Node.js 18+
+- Maven (included via `mvnw`)
 
-```powershell
+### 1. Start the Backend
+
+```bash
+cd backend
+./mvnw spring-boot:run          # Linux/macOS
+.\mvnw.cmd spring-boot:run      # Windows PowerShell
+```
+
+The Spring Boot server starts at `http://localhost:8080`.  
+H2 Console available at `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:vayrodb`).
+
+### 2. Start the Frontend
+
+```bash
 cd frontend
+npm install
 npm run dev
 ```
 
-Open your browser at `http://localhost:5173`.
+Open `http://localhost:5173` in your browser. The Vite dev server proxies `/api/*` to `localhost:8080` automatically.
 
----
+### 3. Full Stack with Docker Compose
 
-### 3. Run with Docker Compose (Full Production Stack)
-
-To run PostgreSQL 16, Redis, Spring Boot Backend, and Nginx Frontend in isolated containers:
-
-```powershell
+```bash
 docker compose up --build
 ```
 
-- Frontend: `http://localhost:3000`
-- Backend API: `http://localhost:8080`
-- PostgreSQL: `localhost:5432` (database: `vayro_db`)
-- Redis: `localhost:6379`
+| Service | URL |
+|:--------|:----|
+| Frontend | `http://localhost:3000` |
+| Backend API | `http://localhost:8080` |
+| PostgreSQL | `localhost:5432` (db: `vayro_db`) |
+
+---
+
+## 🚀 Deployment
+
+The project deploys automatically to **Render** via the `render.yaml` Blueprint whenever changes are pushed to `main`.
+
+| Service | Type | Runtime |
+|:--------|:-----|:--------|
+| `vayro-backend` | Web Service | Docker (JRE 17 Alpine) |
+| `vayro-frontend` | Static Site | Node.js build → CDN |
+
+The `VITE_API_BASE_URL` environment variable is automatically injected into the frontend build via Render's `fromService` blueprint wiring, ensuring the frontend always knows the correct backend URL without hardcoding.
+
+---
+
+## 📡 API Overview
+
+| Method | Endpoint | Auth | Description |
+|:-------|:---------|:-----|:------------|
+| `POST` | `/api/v1/auth/register` | None | Register new user |
+| `POST` | `/api/v1/auth/login` | None | Login, returns JWT |
+| `GET` | `/api/v1/auth/me` | Bearer | Get current user profile |
+| `POST` | `/api/v1/rides/request` | Rider | Request a new ride |
+| `GET` | `/api/v1/rides/{id}` | Bearer | Get ride by ID |
+| `GET` | `/api/v1/rides/history` | Rider | Get all past rides |
+| `POST` | `/api/v1/rides/{id}/cancel` | Rider | Cancel an active ride |
+| `GET` | `/api/v1/rides/{id}/invoice` | Rider | Download PDF tax invoice |
+| `PATCH` | `/api/v1/drivers/status` | Driver | Toggle online/offline |
+| `PATCH` | `/api/v1/drivers/location` | Driver | Update GPS position |
+| `POST` | `/api/v1/drivers/rides/{id}/accept` | Driver | Accept incoming offer |
+| `POST` | `/api/v1/drivers/rides/{id}/arrive` | Driver | Mark arrived at pickup |
+| `POST` | `/api/v1/drivers/rides/{id}/start` | Driver | Start ride (OTP verify) |
+| `POST` | `/api/v1/drivers/rides/{id}/complete` | Driver | Complete the trip |
+| `POST` | `/api/v1/payments/create-intent` | Rider | Create Stripe payment intent |
+| `POST` | `/api/v1/payments/confirm/{id}` | Rider | Confirm payment |
+| `POST` | `/api/v1/ratings` | Rider | Submit driver rating |
+
+### WebSocket Topics (STOMP)
+
+| Topic | Direction | Payload |
+|:------|:----------|:--------|
+| `/topic/drivers/requests` | Server → Driver | New ride offer |
+| `/topic/ride/{id}/status` | Server → All | Ride status update |
+| `/topic/ride/{id}/location` | Server → Rider | Driver GPS coordinates |
+
+---
+
+## 🧑‍💻 Author
+
+**Piyush Funde**  
+Full-Stack Developer — Spring Boot · React · Cloud Deployment
+
+[![GitHub](https://img.shields.io/badge/GitHub-piyushFunde-181717?style=flat-square&logo=github)](https://github.com/piyushFunde)
+
+---
+
+<div align="center">
+
+Built with ❤️ using Spring Boot, React, and deployed on Render.
+
+[🌐 Open Live App](https://vayro-frontend.onrender.com/) &nbsp;·&nbsp; [⭐ Star on GitHub](https://github.com/piyushFunde/Vayro)
+
+</div>
