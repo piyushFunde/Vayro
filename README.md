@@ -1,24 +1,16 @@
-<div align="center">
 
-<img src="https://img.shields.io/badge/Live%20Demo-Vayro-CBF932?style=for-the-badge&logo=render&logoColor=black" alt="Live Demo" />
 
 # Vayro — Enterprise Ride-Hailing Platform
 
 **A production-grade, full-stack cab booking application built with Spring Boot 3 and React.**  
 Real-time driver tracking, live map routing, JWT authentication, WebSocket communications, and Stripe payment simulation — all deployed and accessible live.
 
-[![Live App](https://img.shields.io/badge/🌐%20Live%20App-vayro--frontend.onrender.com-CBF932?style=flat-square)](https://vayro-frontend.onrender.com/)
-[![Backend API](https://img.shields.io/badge/🔗%20Backend%20API-vayro--backend.onrender.com-0E131F?style=flat-square)](https://vayro-backend.onrender.com/api/v1)
-[![Java](https://img.shields.io/badge/Java-17-ED8B00?style=flat-square&logo=openjdk&logoColor=white)](https://openjdk.org/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.4-6DB33F?style=flat-square&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
-[![React](https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
-[![Render](https://img.shields.io/badge/Deployed%20on-Render-46E3B7?style=flat-square&logo=render&logoColor=black)](https://render.com/)
 
 </div>
 
 ---
 
-## 🌐 Live Deployment
+##  Live Deployment
 
 | Service | URL | Platform |
 |:--------|:----|:---------|
@@ -29,24 +21,9 @@ Real-time driver tracking, live map routing, JWT authentication, WebSocket commu
 
 ---
 
-## 🔑 Demo Credentials
+##  Features
 
-Sign up with any email, or use the pre-seeded demo accounts to explore immediately:
-
-| Role | Email | Password | Details |
-|:-----|:------|:---------|:--------|
-| 🧑 **Rider** | `rider@vayro.com` | `Rider@123` | Book rides, track drivers, pay & rate |
-| 🚗 **Driver 1** | `driver1@vayro.com` | `Driver@123` | Marcus Vance — Toyota Camry, 4.92★ |
-| 🚗 **Driver 2** | `driver2@vayro.com` | `Driver@123` | Elena Rostova — Tesla Model 3, 4.98★ |
-| 🔑 **Admin** | `admin@vayro.com` | `Admin@123` | System administrator |
-
-> **Promo Codes:** `VAYRO50` (50% off, max ₹25) · `WELCOME20` (20% off, max ₹15)
-
----
-
-## ✨ Features
-
-### 🧑 Rider Experience
+### Rider Experience
 - **Interactive Live Map** — CartoDB Voyager & Dark Matter tile modes, real road routing via OSRM, live driver marker with pulsing animation
 - **Autocomplete Location Search** — Nominatim-powered search with real address suggestions as you type
 - **GPS "Locate Me"** — One-tap GPS detection to auto-fill your pickup location
@@ -58,14 +35,14 @@ Sign up with any email, or use the pre-seeded demo accounts to explore immediate
 - **Tax Invoice PDF** — Official GST-compliant invoice generated with iText 8 and downloadable on demand
 - **Driver Rating** — 5-star rating and feedback system post-trip
 
-### 🚗 Driver Experience
+### Driver Experience
 - **Online / Offline Toggle** — Broadcast availability to the dispatch system instantly
 - **Live Incoming Offer Banner** — Real-time ride offer with countdown timer and Accept / Decline controls
 - **Full Trip State Machine** — `ASSIGNED` → `ARRIVED` → PIN Verification → `IN_PROGRESS` → `COMPLETED`
 - **Earnings Dashboard** — Live trip count, rolling average rating, and total earnings tracker
 - **Location Broadcasting** — Continuous heading-aware GPS updates pushed to the backend and riders
 
-### 🔐 Security & Backend
+###  Security & Backend
 - **Stateless JWT Authentication** — JJWT 0.12.x with BCrypt password hashing, 24-hour access tokens
 - **Role-Based Access Control** — `ROLE_RIDER`, `ROLE_DRIVER`, `ROLE_ADMIN` at controller and method level
 - **Spring WebSocket (STOMP)** — Real-time bidirectional messaging over `/ws-cab` with JWT header auth
@@ -74,7 +51,7 @@ Sign up with any email, or use the pre-seeded demo accounts to explore immediate
 
 ---
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 ### Backend
 | Technology | Version | Purpose |
@@ -115,7 +92,7 @@ Sign up with any email, or use the pre-seeded demo accounts to explore immediate
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 
 ```
 Vayro/
@@ -164,7 +141,7 @@ Vayro/
 
 ---
 
-## ⚡ Local Development
+## Local Development
 
 ### Prerequisites
 - Java 17+
@@ -206,7 +183,7 @@ docker compose up --build
 
 ---
 
-## 🚀 Deployment
+##  Deployment
 
 The project deploys automatically to **Render** via the `render.yaml` Blueprint whenever changes are pushed to `main`.
 
@@ -251,7 +228,7 @@ The `VITE_API_BASE_URL` environment variable is automatically injected into the 
 
 ---
 
-## 🧑‍💻 Author
+##  Author
 
 **Piyush Funde**  
 Full-Stack Developer — Spring Boot · React · Cloud Deployment
