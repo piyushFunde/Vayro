@@ -115,6 +115,7 @@ export default function MapView({
         center={defaultCenter}
         zoom={13}
         scrollWheelZoom={true}
+        zoomControl={false}
         className="w-full h-full rounded-3xl"
       >
         <MapResizer />
