@@ -2,7 +2,7 @@ services:
   # Spring Boot Backend API
   - type: web
     name: vayro-backend
-    env: docker
+    runtime: docker
     dockerContext: ./backend
     dockerfilePath: ./backend/Dockerfile
     plan: free
@@ -13,10 +13,10 @@ services:
       - key: APP_JWT_SECRET
         value: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
 
-  # React Frontend (Optional: can also be hosted directly on Vercel)
-  - type: static
+  # React Frontend (Static Site on Render)
+  - type: web
     name: vayro-frontend
-    env: static
+    runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
@@ -24,3 +24,4 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
+
