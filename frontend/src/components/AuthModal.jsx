@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { X, Lock, Mail, User, Phone, CheckCircle, ArrowRight } from 'lucide-react';
+import { getBackendBaseUrl } from '../services/api';
+import { X, Lock, Mail, User, Phone, CheckCircle, ArrowRight, Server, Settings } from 'lucide-react';
 
 export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
   const { login, register } = useAuth();
@@ -13,8 +14,21 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
+  const [showServerConfig, setShowServerConfig] = useState(false);
+  const [serverUrlInput, setServerUrlInput] = useState(getBackendBaseUrl() || '');
 
   if (!isOpen) return null;
+
+  const handleSaveServerUrl = () => {
+    if (serverUrlInput.trim()) {
+      localStorage.setItem('vayro_backend_url', serverUrlInput.trim());
+    } else {
+      localStorage.removeItem('vayro_backend_url');
+    }
+    setError('');
+    setSuccessMsg('Backend URL updated!');
+    setTimeout(() => setSuccessMsg(''), 2500);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,6 +54,11 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
           setLoading(false);
           return;
         }
+        if (password.length < 6) {
+          setError('Password must be at least 6 characters.');
+          setLoading(false);
+          return;
+        }
         await register({
           email: email.trim(),
           password,
@@ -54,7 +73,18 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
       }
     } catch (err) {
       console.error('Auth error:', err);
-      setError(err.response?.data?.message || 'Invalid email or password. Please try again.');
+      const serverMsg = err.response?.data?.message || err.response?.data?.error;
+      const isHtml = typeof err.response?.data === 'string' && err.response.data.includes('<!DOCTYPE');
+
+      if (serverMsg) {
+        setError(serverMsg);
+      } else if (isHtml || !err.response || err.message === 'Network Error' || err.code === 'ERR_NETWORK') {
+        const currentTarget = getBackendBaseUrl() || window.location.origin;
+        setError(`Unable to connect to backend at ${currentTarget}. If Render is waking up from sleep, please wait 30s and try again.`);
+        setShowServerConfig(true);
+      } else {
+        setError(mode === 'login' ? 'Invalid email or password. Please try again.' : 'Registration failed. Please check your information and try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -232,7 +262,51 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
           </button>
         </form>
 
-        <div className="mt-5 text-center text-[11px] text-slate-400">
+        {/* Backend Server URL Config */}
+        <div className="mt-4 pt-3 border-t border-slate-100">
+          <button
+            type="button"
+            onClick={() => setShowServerConfig(!showServerConfig)}
+            className="w-full flex items-center justify-between text-[11px] font-semibold text-slate-400 hover:text-slate-600 transition"
+          >
+            <span className="flex items-center space-x-1.5">
+              <Server className="w-3 h-3 text-slate-400" />
+              <span>Backend: {getBackendBaseUrl() || '(Relative Proxy)'}</span>
+            </span>
+            <span className="text-vayro-limeHover font-bold">
+              {showServerConfig ? 'Hide' : 'Configure'}
+            </span>
+          </button>
+
+          {showServerConfig && (
+            <div className="mt-2.5 p-3 bg-slate-50 border border-slate-200 rounded-xl animate-fade-in space-y-2">
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                Backend API URL (Render / Custom)
+              </label>
+              <div className="flex space-x-1.5">
+                <input
+                  type="url"
+                  value={serverUrlInput}
+                  onChange={(e) => setServerUrlInput(e.target.value)}
+                  placeholder="https://vayro-backend.onrender.com"
+                  className="flex-1 px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-black"
+                />
+                <button
+                  type="button"
+                  onClick={handleSaveServerUrl}
+                  className="px-3 py-1.5 bg-[#0E131F] text-white text-xs font-bold rounded-lg hover:bg-black transition cursor-pointer"
+                >
+                  Save
+                </button>
+              </div>
+              <p className="text-[10px] text-slate-400">
+                Tip: Enter your backend URL from Render (e.g. https://vayro-backend.onrender.com).
+              </p>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-3 text-center text-[10px] text-slate-400">
           Secured with Spring Security JWT Stateless Bearer Token
         </div>
       </div>

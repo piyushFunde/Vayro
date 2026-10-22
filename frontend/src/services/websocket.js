@@ -3,6 +3,7 @@
  * Connects directly to Spring Boot backend STOMP broker at /ws-cab
  */
 import { Client } from '@stomp/stompjs';
+import { getBackendBaseUrl } from './api';
 
 class WebSocketService {
   constructor() {
@@ -20,8 +21,15 @@ class WebSocketService {
     const token = localStorage.getItem('vayro_token');
     let brokerURL = import.meta.env.VITE_WS_URL;
     if (!brokerURL) {
-      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      brokerURL = `${protocol}//${window.location.host}/ws-cab`;
+      const backendBase = getBackendBaseUrl();
+      if (backendBase) {
+        const clean = backendBase.replace(/^https?:\/\//, '').replace(/\/+$/, '');
+        const wsProto = backendBase.startsWith('http://') ? 'ws:' : 'wss:';
+        brokerURL = `${wsProto}//${clean}/ws-cab`;
+      } else {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        brokerURL = `${protocol}//${window.location.host}/ws-cab`;
+      }
     }
 
     this.client = new Client({

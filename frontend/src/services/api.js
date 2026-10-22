@@ -1,18 +1,41 @@
 import axios from 'axios';
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || '') + '/api/v1';
+export function getBackendBaseUrl() {
+  if (typeof window !== 'undefined') {
+    const custom = localStorage.getItem('vayro_backend_url');
+    if (custom && custom.trim()) {
+      return custom.trim().replace(/\/+$/, '');
+    }
+  }
+
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL.replace(/\/+$/, '');
+  }
+
+  // Automatically detect Render deployment
+  if (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com')) {
+    return 'https://vayro-backend.onrender.com';
+  }
+
+  return '';
+}
+
+export function getApiBaseUrl() {
+  const base = getBackendBaseUrl();
+  return base ? `${base}/api/v1` : '/api/v1';
+}
 
 const apiClient = axios.create({
-  baseURL: API_BASE,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Request interceptor to attach JWT token
+// Dynamic request interceptor to attach dynamic baseURL and JWT token
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('vayro_token');
+    config.baseURL = getApiBaseUrl();
+    const token = typeof window !== 'undefined' ? localStorage.getItem('vayro_token') : null;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
