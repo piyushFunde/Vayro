@@ -1,18 +1,109 @@
 import React from 'react';
 
+// High-fidelity distinct vehicle vector icons
+const AutoIcon = () => (
+  <svg className="w-14 h-9 sm:w-16 sm:h-10 text-[#0E131F]" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Auto Rickshaw Silhouette */}
+    <path
+      d="M12 28C9.5 28 8.5 26.5 8 23L9.5 16C10 14 12 12.5 14.5 12L20 10.5L25 5.5C26 4.5 27.5 4 29 4H48C51.5 4 54 6.5 54 10V22C54 25.5 51.5 28 48 28H46"
+      fill="currentColor"
+    />
+    {/* Windshield */}
+    <path d="M19 12L24 6H29V17H14.5L19 12Z" fill="#FAFAF8" fillOpacity="0.45" />
+    {/* Open Passenger Entry */}
+    <path d="M32 7H48C49.5 7 50.5 8 50.5 9.5V21.5H32V7Z" fill="#FAFAF8" fillOpacity="0.45" />
+    {/* Headlight */}
+    <circle cx="8" cy="18" r="1.8" fill="#CBF932" />
+    {/* Base chassis */}
+    <rect x="11" y="26" width="37" height="2" rx="1" fill="currentColor" />
+    {/* Front Wheel */}
+    <circle cx="16" cy="30" r="5" fill="currentColor" />
+    <circle cx="16" cy="30" r="2.2" fill="#FAFAF8" />
+    {/* Rear Wheel */}
+    <circle cx="43" cy="30" r="5.5" fill="currentColor" />
+    <circle cx="43" cy="30" r="2.4" fill="#FAFAF8" />
+  </svg>
+);
+
+const MiniIcon = () => (
+  <svg className="w-14 h-9 sm:w-16 sm:h-10 text-[#0E131F]" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Compact Hatchback Silhouette */}
+    <path
+      d="M6 25C6 22.5 7.5 20.5 10 20L19.5 18L26 8.5C27 7 28.5 6 30.5 6H42C44 6 45.5 7 46.5 8.5L52 18C54.5 19.5 56 22 56 24.5V26.5C56 28 54.5 28.5 52.5 28.5H51C51 24.5 43.5 24.5 43.5 28.5H22C22 24.5 14.5 24.5 14.5 28.5H8.5C6.5 28.5 6 27 6 25Z"
+      fill="currentColor"
+    />
+    {/* Front Window */}
+    <path d="M25 9.5H33V17H19L25 9.5Z" fill="#FAFAF8" fillOpacity="0.45" />
+    {/* Rear Hatchback Window */}
+    <path d="M35 9.5H41C42.5 9.5 44 10.5 44.5 12L47.5 17H35V9.5Z" fill="#FAFAF8" fillOpacity="0.45" />
+    {/* Headlight */}
+    <ellipse cx="8.5" cy="22" rx="2" ry="1.2" fill="#CBF932" />
+    {/* Front Wheel */}
+    <circle cx="18" cy="30" r="5.5" fill="currentColor" />
+    <circle cx="18" cy="30" r="2.3" fill="#FAFAF8" />
+    {/* Rear Wheel */}
+    <circle cx="47" cy="30" r="5.5" fill="currentColor" />
+    <circle cx="47" cy="30" r="2.3" fill="#FAFAF8" />
+  </svg>
+);
+
+const SedanIcon = () => (
+  <svg className="w-14 h-9 sm:w-16 sm:h-10 text-[#0E131F]" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Sleek Notchback Sedan Silhouette */}
+    <path
+      d="M4 25C4 23 5.5 21 8 20.5L20.5 19L27 9C28 7.5 29.5 6.5 31.5 6.5H41C43 6.5 44.5 7.5 45.5 9L50 17.5L56 18.5C58.5 19 60 21 60 23.5V26C60 27.5 58.5 28.5 56.5 28.5H53C53 24.5 45.5 24.5 45.5 28.5H23C23 24.5 15.5 24.5 15.5 28.5H6.5C4.5 28.5 4 27 4 25Z"
+      fill="currentColor"
+    />
+    {/* Front Window */}
+    <path d="M26.5 10H33V17.5H20.5L26.5 10Z" fill="#FAFAF8" fillOpacity="0.45" />
+    {/* Rear Window */}
+    <path d="M35 10H40C41.5 10 42.5 11 43.5 12.5L46.5 17.5H35V10Z" fill="#FAFAF8" fillOpacity="0.45" />
+    {/* Headlight */}
+    <ellipse cx="6.5" cy="22" rx="2" ry="1" fill="#CBF932" />
+    {/* Front Wheel */}
+    <circle cx="19" cy="30" r="5.5" fill="currentColor" />
+    <circle cx="19" cy="30" r="2.3" fill="#FAFAF8" />
+    {/* Rear Wheel */}
+    <circle cx="49" cy="30" r="5.5" fill="currentColor" />
+    <circle cx="49" cy="30" r="2.3" fill="#FAFAF8" />
+  </svg>
+);
+
+const SUVIcon = () => (
+  <svg className="w-14 h-9 sm:w-16 sm:h-10 text-[#0E131F]" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Roof Rails */}
+    <rect x="25" y="4" width="22" height="1.5" rx="0.75" fill="currentColor" />
+    <rect x="27" y="5.5" width="2" height="1.5" fill="currentColor" />
+    <rect x="43" y="5.5" width="2" height="1.5" fill="currentColor" />
+    {/* Muscular High-Clearance SUV Silhouette */}
+    <path
+      d="M5 24.5C5 21.5 6.5 18.5 9 17.5L20 16L25.5 7.5C26.5 6.5 28 6 29.5 6H47C49 6 50.5 7 51.5 8.5L54.5 16C57 17.5 58.5 20.5 58.5 23.5V26C58.5 27.5 57 28.5 55 28.5H53.5C53.5 24 44.5 24 44.5 28.5H24.5C24.5 24 15.5 24 15.5 28.5H7.5C5.5 28.5 5 27 5 24.5Z"
+      fill="currentColor"
+    />
+    {/* Front Window */}
+    <path d="M25 9H32V15H19.5L25 9Z" fill="#FAFAF8" fillOpacity="0.45" />
+    {/* Middle Window */}
+    <path d="M34 9H41V15H34V9Z" fill="#FAFAF8" fillOpacity="0.45" />
+    {/* 3rd Row Rear Window */}
+    <path d="M43 9H46.5C47.5 9 48.5 9.8 49 11L51 15H43V9Z" fill="#FAFAF8" fillOpacity="0.45" />
+    {/* Headlight */}
+    <ellipse cx="7" cy="20" rx="2" ry="1.5" fill="#CBF932" />
+    {/* Front Wheel (Heavy Duty) */}
+    <circle cx="20" cy="30" r="6" fill="currentColor" />
+    <circle cx="20" cy="30" r="2.5" fill="#FAFAF8" />
+    {/* Rear Wheel (Heavy Duty) */}
+    <circle cx="49" cy="30" r="6" fill="currentColor" />
+    <circle cx="49" cy="30" r="2.5" fill="#FAFAF8" />
+  </svg>
+);
+
 const CATEGORIES = [
   {
     id: 'AUTO',
     name: 'Auto',
     desc: 'Quick and affordable for short city hops. Up to 3 riders.',
     price: '₹112',
-    icon: (
-      <svg className="w-8 h-8 text-[#0E131F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M5 16h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2-4H8L6 7H5a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2z" />
-        <circle cx="7" cy="17" r="2" />
-        <circle cx="17" cy="17" r="2" />
-      </svg>
-    ),
+    icon: <AutoIcon />,
   },
   {
     id: 'MINI',
@@ -20,39 +111,21 @@ const CATEGORIES = [
     desc: 'The everyday pick. Compact cars, shortest wait. Up to 4 riders.',
     price: '₹168',
     isPopular: true,
-    icon: (
-      <svg className="w-8 h-8 text-[#0E131F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 10.7 2 10.8 2 11v5c0 .6.4 1 1 1h2" />
-        <circle cx="7" cy="17" r="2" />
-        <circle cx="17" cy="17" r="2" />
-      </svg>
-    ),
+    icon: <MiniIcon />,
   },
   {
     id: 'SEDAN',
     name: 'Sedan',
     desc: 'More legroom and a quieter ride for longer trips.',
     price: '₹214',
-    icon: (
-      <svg className="w-8 h-8 text-[#0E131F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2" />
-        <circle cx="6.5" cy="16.5" r="2.5" />
-        <circle cx="16.5" cy="16.5" r="2.5" />
-      </svg>
-    ),
+    icon: <SedanIcon />,
   },
   {
     id: 'SUV',
     name: 'SUV',
     desc: 'Room for the whole group and the luggage. Up to 6 riders.',
     price: '₹296',
-    icon: (
-      <svg className="w-8 h-8 text-[#0E131F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 14h18v-2a3 3 0 0 0-3-3h-4l-2-3H8L6 9H4a3 3 0 0 0-3 3v2z" />
-        <circle cx="6.5" cy="16.5" r="2.5" />
-        <circle cx="17.5" cy="16.5" r="2.5" />
-      </svg>
-    ),
+    icon: <SUVIcon />,
   },
 ];
 
@@ -85,7 +158,9 @@ export default function RideCategories({ selectedCategory, onSelectCategory }) {
               }`}
             >
               <div>
-                <div className="mb-4">{cat.icon}</div>
+                <div className="mb-4 inline-flex items-center justify-center p-2 rounded-2xl bg-black/5">
+                  {cat.icon}
+                </div>
                 <h3 className="text-xl font-bold mb-2">{cat.name}</h3>
                 <p className={`text-xs sm:text-sm leading-relaxed ${isMini || isSelected ? 'text-slate-800' : 'text-slate-500'}`}>
                   {cat.desc}
@@ -114,7 +189,9 @@ export default function RideCategories({ selectedCategory, onSelectCategory }) {
               }`}
             >
               <div className="flex items-start sm:items-center space-x-4 mb-4 sm:mb-0">
-                <div className="flex-shrink-0">{cat.icon}</div>
+                <div className="flex-shrink-0 inline-flex items-center justify-center p-2 rounded-2xl bg-black/5">
+                  {cat.icon}
+                </div>
                 <div>
                   <h3 className="text-xl font-bold">{cat.name}</h3>
                   <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-xl">
