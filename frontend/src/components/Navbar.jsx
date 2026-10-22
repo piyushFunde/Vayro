@@ -150,9 +150,6 @@ export default function Navbar({ onOpenHistory, onOpenAuth }) {
                 <div className="px-4 py-2 border-b border-slate-100">
                   <div className="text-xs font-bold text-[#0E131F] truncate">{user.fullName}</div>
                   <div className="text-[10px] text-slate-400 truncate">{user.email}</div>
-                  <div className="mt-1 inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 text-slate-600">
-                    {activeRole}
-                  </div>
                 </div>
 
                 <button

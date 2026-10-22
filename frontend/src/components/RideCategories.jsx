@@ -146,13 +146,12 @@ export default function RideCategories({ selectedCategory, onSelectCategory }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {CATEGORIES.slice(0, 3).map((cat) => {
           const isSelected = selectedCategory === cat.id;
-          const isMini = cat.id === 'MINI';
           return (
             <div
               key={cat.id}
               onClick={() => onSelectCategory(cat.id)}
               className={`p-6 rounded-3xl cursor-pointer transition-all duration-200 border flex flex-col justify-between ${
-                isMini || isSelected
+                isSelected
                   ? 'bg-vayro-lime border-vayro-lime text-[#0E131F] shadow-sm transform -translate-y-0.5'
                   : 'bg-white border-slate-200/90 hover:border-slate-300 text-[#0E131F]'
               }`}
@@ -162,7 +161,7 @@ export default function RideCategories({ selectedCategory, onSelectCategory }) {
                   {cat.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-2">{cat.name}</h3>
-                <p className={`text-xs sm:text-sm leading-relaxed ${isMini || isSelected ? 'text-slate-800' : 'text-slate-500'}`}>
+                <p className={`text-xs sm:text-sm leading-relaxed ${isSelected ? 'text-slate-800' : 'text-slate-500'}`}>
                   {cat.desc}
                 </p>
               </div>
