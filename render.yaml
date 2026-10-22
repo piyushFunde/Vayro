@@ -2,23 +2,21 @@ services:
   # Spring Boot Backend API
   - type: web
     name: vayro-backend
-    runtime: docker
+    env: docker
     dockerContext: ./backend
     dockerfilePath: ./backend/Dockerfile
     plan: free
     region: oregon
     envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
       - key: PORT
         value: 8080
       - key: APP_JWT_SECRET
-        generateValue: true
+        value: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
 
-  # React Frontend (or can be deployed via Vercel)
+  # React Frontend (Optional: can also be hosted directly on Vercel)
   - type: static
     name: vayro-frontend
-    runtime: static
+    env: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
