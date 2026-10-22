@@ -15,10 +15,6 @@ Real-time driver tracking, live map routing, JWT authentication, WebSocket commu
 | Service | URL | Platform |
 |:--------|:----|:---------|
 | **Frontend** | [https://vayro-frontend.onrender.com](https://vayro-frontend.onrender.com/) | Render Static Site |
-| **Backend API** | [https://vayro-backend.onrender.com](https://vayro-backend.onrender.com/) | Render Docker Web Service |
-
-> **Note:** The backend runs on Render's free tier. If it appears to take ~30 seconds to respond after a period of inactivity, it is simply waking up from sleep. Subsequent requests will be fast.
-
 ---
 
 ##  Features
