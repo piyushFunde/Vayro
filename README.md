@@ -235,11 +235,3 @@ Full-Stack Developer — Spring Boot · React · Cloud Deployment
 [![GitHub](https://img.shields.io/badge/GitHub-piyushFunde-181717?style=flat-square&logo=github)](https://github.com/piyushFunde)
 
 ---
-
-<div align="center">
-
-Built with ❤️ using Spring Boot, React, and deployed on Render.
-
-[🌐 Open Live App](https://vayro-frontend.onrender.com/) &nbsp;·&nbsp; [⭐ Star on GitHub](https://github.com/piyushFunde/Vayro)
-
-</div>
